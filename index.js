@@ -1,4 +1,5 @@
 const readline = require('readline');
+const { Circle, Square, Triangle } = require('./lib/shapes');
 const fs = require('fs');
 
 const rl = readline.createInterface({
@@ -64,19 +65,22 @@ function isValidColor(color) {
 
 
 function generateSVG(data) {
-    let shapeElement = '';
+    let shape;
   
     switch (data.shape) {
       case 'circle':
-        shapeElement = `<circle cx="150" cy="100" r="50" fill="${data.shapeColor}" />`;
+        shape = new Circle(data.shapeColor);
         break;
       case 'triangle':
-        shapeElement = `<polygon points="150,50 100,150 200,150" fill="${data.shapeColor}" />`;
+        shape = new Triangle(data.shapeColor);
         break;
       case 'square':
-        shapeElement = `<rect x="100" y="50" width="100" height="100" fill="${data.shapeColor}" />`;
+        shape = new Square(data.shapeColor);
         break;
     }
+  
+    const shapeElement = shape.render();
+    
 
     const svgContent = `
     <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">

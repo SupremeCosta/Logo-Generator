@@ -1,54 +1,52 @@
-const readline = require('readline');
+const inquirer = require('inquirer');
 const { Circle, Square, Triangle } = require('./lib/shapes');
 const fs = require('fs');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-let logoData = {};
-
-rl.question('Enter up to three characters: ', (text) => {
-    if (text.length > 3) {
-        console.error('Error: Text can only be up to 3 characters long.');
-        rl.close();
-        return;
+const questions = [
+    {
+      type: 'input',
+      name: 'text',
+      message: 'Enter up to three characters:',
+      validate: function(value) {
+        if (value.length <= 3) {
+          return true;
+        }
+        return 'Please enter up to three characters';
       }
-    
-  logoData.text = text;
+    },
+    {
+      type: 'input',
+      name: 'textColor',
+      message: 'Enter text color:',
+      validate: function(value) {
+        if (isValidColor(value)) {
+          return true;
+        }
+        return 'Please enter a valid color';
+      }
+    },
+    {
+      type: 'list',
+      name: 'shape',
+      message: 'Choose a shape:',
+      choices: ['circle', 'triangle', 'square']
+    },
+    {
+      type: 'input',
+      name: 'shapeColor',
+      message: 'Enter shape color:',
+      validate: function(value) {
+        if (isValidColor(value)) {
+          return true;
+        }
+        return 'Please enter a valid color';
+      }
+    }
+  ];
   
-  rl.question('Enter text color: ', (textColor) => {
-    if (!isValidColor(textColor)) {
-        console.error('Error: Text color is not a valid HTML color name or hexadecimal color value.');
-        rl.close();
-        return;
-      }
-    logoData.textColor = textColor;
-
-    rl.question('Choose a shape (circle, triangle, square): ', (shape) => {
-        if (!['circle', 'triangle', 'square'].includes(shape)) {
-            console.error('Error: Shape must be either a circle, triangle, or square.');
-            rl.close();
-            return;
-          }
-        logoData.shape = shape;
-
-    rl.question('Enter shape color: ', (shapeColor) => {
-        if (!isValidColor(shapeColor)) {
-            console.error('Error: Shape color is not a valid HTML color name or hexadecimal color value.');
-            rl.close();
-            return;
-          }
-        logoData.shapeColor = shapeColor;
-
-        rl.close();
-
-        generateSVG(logoData);
-      });
-    });
+  inquirer.prompt(questions).then(answers => {
+    generateSVG(answers);
   });
-});
 
 function isValidColor(color) {
     // Check for hexadecimal color value

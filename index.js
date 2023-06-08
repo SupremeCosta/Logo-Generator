@@ -49,11 +49,19 @@ rl.question('Enter up to three characters: ', (text) => {
   });
 });
 
-function isValidColor(strColor) {
-    const s = new Option().style;
-    s.color = strColor;
-    return s.color !== '';
-  }
+function isValidColor(color) {
+    // Check for hexadecimal color value
+    if (/^#([0-9A-F]{3}){1,2}$/i.test(color)) return true;
+
+    // List of valid HTML color names
+    const validColorNames = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal', 'white', 'yellow'];
+    
+    // Check if the color name is in the list of valid color names
+    if (validColorNames.includes(color.toLowerCase())) return true;
+
+    return false;
+}
+
 
 function generateSVG(data) {
     let shapeElement = '';

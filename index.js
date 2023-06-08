@@ -9,15 +9,36 @@ const rl = readline.createInterface({
 let logoData = {};
 
 rl.question('Enter up to three characters: ', (text) => {
-  logoData.text = text.slice(0, 3);
+    if (text.length > 3) {
+        console.error('Error: Text can only be up to 3 characters long.');
+        rl.close();
+        return;
+      }
+    
+  logoData.text = text;
   
   rl.question('Enter text color: ', (textColor) => {
+    if (!isValidColor(textColor)) {
+        console.error('Error: Text color is not a valid HTML color name or hexadecimal color value.');
+        rl.close();
+        return;
+      }
     logoData.textColor = textColor;
 
     rl.question('Choose a shape (circle, triangle, square): ', (shape) => {
-      logoData.shape = shape;
+        if (!['circle', 'triangle', 'square'].includes(shape)) {
+            console.error('Error: Shape must be either a circle, triangle, or square.');
+            rl.close();
+            return;
+          }
+        logoData.shape = shape;
 
-      rl.question('Enter shape color: ', (shapeColor) => {
+    rl.question('Enter shape color: ', (shapeColor) => {
+        if (!isValidColor(shapeColor)) {
+            console.error('Error: Shape color is not a valid HTML color name or hexadecimal color value.');
+            rl.close();
+            return;
+          }
         logoData.shapeColor = shapeColor;
 
         rl.close();
@@ -27,6 +48,12 @@ rl.question('Enter up to three characters: ', (text) => {
     });
   });
 });
+
+function isValidColor(strColor) {
+    const s = new Option().style;
+    s.color = strColor;
+    return s.color !== '';
+  }
 
 function generateSVG(data) {
     let shapeElement = '';

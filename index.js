@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const { Circle, Square, Triangle } = require('./lib/shapes');
+const { Circle, Square, Triangle } = require('./lib/shapes/shapes');
 const fs = require('fs');
 
 const questions = [

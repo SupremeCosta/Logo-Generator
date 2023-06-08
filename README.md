@@ -23,9 +23,9 @@
   ## Visuals
   Here is a video link along with visuals of the Logo generator interface.
   https://drive.google.com/file/d/1PXd_yQ9O766ntpuvSn6jHslznb6jrtxb/view
-  <img src="./assets/images/README Generator 1.png" alt="Logo Generator Screenshot">
-  <img src="./assets/images/README Generator 2.png" alt="Logo Generator Screenshot"> 
-  <img src="./assets/images/README Generator 3.png" alt="Logo Generator Screenshot"> 
+  <img src="./assets/images/Logo Generator 1.png" alt="Logo Generator Screenshot">
+  <img src="./assets/images/Logo Generator 2.png" alt="Logo Generator Screenshot"> 
+  <img src="./assets/images/Logo Generator 3.png" alt="Logo Generator Screenshot"> 
   ## License
   This project is covered under the MIT license.
   ## Contributing
